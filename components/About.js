@@ -2,7 +2,7 @@ import React from "react";
 
 export default function About() {
 	return (
-		<div className=" w-11/12 mx-auto mt-36 text-white p-5 rounded-md">
+		<div className=" w-11/12 mx-auto mt-36 p-5 rounded-md text-white">
 			<div>
 				<h1 className="text-xl sm:text-2xl font-medium mt-5">
 					<span className="border-b-4 border-red-400">What</span> is Pomodoro
