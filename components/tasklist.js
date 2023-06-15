@@ -1,7 +1,13 @@
 import Task from "./task";
 import { DateTime } from "luxon";
 
-const TaskList = ({ tasks, toggleTaskStatus, getTickingTime, seconds }) => {
+const TaskList = ({
+  tasks,
+  toggleTaskStatusToActive,
+  toggleTaskStatusToDone,
+  getTickingTime,
+  seconds,
+}) => {
   const finishAt = () => {
     const now = DateTime.now();
     const finishAt = now.plus({ minutes: getTickingTime(), seconds: seconds });
@@ -14,7 +20,12 @@ const TaskList = ({ tasks, toggleTaskStatus, getTickingTime, seconds }) => {
       </div>
       <div>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} toggleTaskStatus={toggleTaskStatus} />
+          <Task
+            key={task.id}
+            task={task}
+            toggleTaskStatusToActive={toggleTaskStatusToActive}
+            toggleTaskStatusToDone={toggleTaskStatusToDone}
+          />
         ))}
       </div>
       <div className="bg-white bg-opacity-25 p-2 rounded-b-lg border-t border-slate-100 text-center">

@@ -16,7 +16,6 @@ const DropdownMenuDemo = ({ task, toggleTaskStatus }) => {
           <DropdownMenu.Item
             className="DropdownMenuItem"
             onClick={() => {
-              console.log(toggleTaskStatus);
               toggleTaskStatus(task.id, "DONE");
             }}
           >

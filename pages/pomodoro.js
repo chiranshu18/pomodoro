@@ -73,13 +73,30 @@ export default function Home() {
     },
   ]);
 
-  const toggleTaskStatus = (id, status) => {
-    tasks.forEach((element) => {
-      if (element.id === id) {
-        element.status = status;
-      }
-    });
+  const toggleTaskStatusToActive = (id) => {
+    let curr = tasks.find((task) => task.id === id);
+    if (curr.status === "DONE") {
+      return;
+    } else {
+      tasks.forEach((task) => {
+        task.status = task.status === "ACTIVE" ? "TODO" : task.status;
+        if (task.id === id) {
+          task.status = "ACTIVE";
+        }
+      });
+    }
     setTasks([...tasks]);
+  };
+
+  const toggleTaskStatusToDone = (id) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          task.status = "DONE";
+        }
+        return task;
+      })
+    );
   };
 
   const pomodoroRef = useRef();
@@ -128,12 +145,20 @@ export default function Home() {
   const timeUp = () => {
     reset();
     setIsTimeUp(true);
+    if (stage === 0) {
+      setTasks(
+        tasks.map((task) => {
+          if (task.status === "ACTIVE") {
+            task.tomatoes += 1;
+          }
+          return task;
+        })
+      );
+    }
     alarmRef.current.play();
     setTimeout(() => {
       muteAlarm();
-      console.log("timeout start");
       if (stage !== 0) {
-        console.log("stage !== 1", stage);
         switchStage(0);
         startTimer();
         return;
@@ -145,7 +170,6 @@ export default function Home() {
       } else {
         switchStage(1);
       }
-      console.log("timeout before start");
       startTimer();
     }, 30);
   };
@@ -153,7 +177,6 @@ export default function Home() {
   const clockTicking = () => {
     const minutes = getTickingTime();
     const setMinutes = updateMinute();
-    console.log(minutes, seconds);
     if (minutes === 0 && seconds === 0) {
       timeUp();
     } else if (seconds === 0) {
@@ -214,7 +237,8 @@ export default function Home() {
 
           <TaskList
             tasks={tasks}
-            toggleTaskStatus={toggleTaskStatus}
+            toggleTaskStatusToActive={toggleTaskStatusToActive}
+            toggleTaskStatusToDone={toggleTaskStatusToDone}
             getTickingTime={getTickingTime}
             seconds={seconds}
           />
