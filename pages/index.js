@@ -222,7 +222,7 @@ export default function Home() {
         switchStage(1);
       }
       startTimer();
-    }, 30);
+    }, 30000);
   };
 
   const clockTicking = () => {
@@ -258,7 +258,7 @@ export default function Home() {
         setConsumedSecond((value) => value + 1);
         clockTicking();
       }
-    }, 1);
+    }, 1000);
     if (isTimeUp) {
       clearInterval(timer);
     }
