@@ -75,7 +75,7 @@ const TaskList = ({
       <div className="border-b border-slate-100 text-white text-3xl text-center">
         <h1>Tasks</h1>
       </div>
-      <div>
+      <div className="h-80 w-full overflow-scroll">
         {tasks.map((task) => (
           <Task
             key={task.id}
