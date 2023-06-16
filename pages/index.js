@@ -33,7 +33,7 @@ export default function Home() {
     if (user) {
       localStorage.setItem("user", JSON.stringify(user));
       axios
-        .get("http://localhost:3000/api/user", {
+        .get("process.env.NEXT_PUBLIC_API_DOMAIN/api/user", {
           params: {
             id: user.sid,
           },
@@ -44,7 +44,7 @@ export default function Home() {
         .catch((err) => {
           if (err.response.status === 404) {
             axios
-              .post("http://localhost:3000/api/user", {
+              .post("process.env.NEXT_PUBLIC_API_DOMAIN/api/user", {
                 id: user.sid,
                 name: user.nickname || user.email,
               })
@@ -106,14 +106,14 @@ export default function Home() {
   const deleteTask = (id) => {
     // setTasks([...tasks.filter((task) => task.id !== id)]);
     axios
-      .delete("http://localhost:3000/api/task", {
+      .delete("process.env.NEXT_PUBLIC_API_DOMAIN/api/task", {
         params: {
           id: id,
         },
       })
       .then(() => {
         axios
-          .get("http://localhost:3000/api/user", {
+          .get("process.env.NEXT_PUBLIC_API_DOMAIN/api/user", {
             params: {
               id: user.sid,
             },
