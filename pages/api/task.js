@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     });
     if (data === null)
       return res.status(404).json({ message: "task not found" });
+    res.setHeader("Cache-Control", "no-store");
     return res.status(200).json(data);
   } else if (req.method === "POST") {
     const body = req.body;

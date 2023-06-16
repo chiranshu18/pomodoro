@@ -53,7 +53,7 @@ export default function Home() {
         });
     }
     // make an axios call to get user data
-  }, []);
+  }, [user]);
 
   const [tasks, setTasks] = useState([
     // {

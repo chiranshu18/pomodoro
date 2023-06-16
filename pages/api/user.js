@@ -6,7 +6,9 @@ export default async function handler(req, res) {
     try {
       const data = await prisma.user.findFirstOrThrow({
         where: { id: req.query.id },
+        include: { tasks: true },
       });
+      res.setHeader("Cache-Control", "no-store");
       return res.status(200).json(data);
     } catch (error) {
       return res.status(404).json({ message: "user not found" });
