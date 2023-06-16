@@ -4,9 +4,12 @@ import Alarm from "../components/Alarm";
 import Navigation from "../components/Navigation";
 import Timer from "../components/Timer";
 import TaskList from "../components/tasklist";
-// import About from "../components/About";
+import axios from "axios";
+
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { FiMail } from "react-icons/fi";
 
 export const getServerSideProps = withPageAuthRequired();
 
@@ -25,53 +28,85 @@ export default function Home() {
   const [consumedSecond, setConsumedSecond] = useState(0);
   const [countTask, setCountTask] = useState(0);
 
+  const { user, error, isLoading } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+      axios
+        .get("http://localhost:3000/api/user", {
+          params: {
+            id: user.sid,
+          },
+        })
+        .then((response) => {
+          setTasks(response.data.tasks || []);
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            axios
+              .post("http://localhost:3000/api/user", {
+                id: user.sid,
+                name: user.nickname || user.email,
+              })
+              .then((response) => {});
+          }
+        });
+    }
+    // make an axios call to get user data
+  }, []);
+
   const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Task 1",
-      description: "Description for task",
-      status: "ACTIVE",
-      dueDate: new Date(),
-      tomatoes: 1,
-      createdAt: new Date(),
-    },
-    {
-      id: 2,
-      title: "Task 2",
-      description: "Description for task",
-      status: "TODO",
-      dueDate: new Date(),
-      tomatoes: 1,
-      createdAt: new Date(),
-    },
-    {
-      id: 3,
-      title: "Task 3",
-      description: "Description for task",
-      status: "DONE",
-      dueDate: new Date(),
-      tomatoes: 1,
-      createdAt: new Date(),
-    },
-    {
-      id: 4,
-      title: "Task 4",
-      description: "Description for task",
-      status: "TODO",
-      dueDate: new Date(),
-      tomatoes: 1,
-      createdAt: new Date(),
-    },
-    {
-      id: 5,
-      title: "Task 5",
-      description: "Description for task",
-      status: "TODO",
-      dueDate: new Date(),
-      tomatoes: 1,
-      createdAt: new Date(),
-    },
+    // {
+    //   id: 1,
+    //   title: "Task 1",
+    //   description: "Description for task",
+    //   status: "ACTIVE",
+    //   dueDate: new Date(),
+    //   tomatoes: 1,
+    //   createdAt: new Date(),
+    // },
+    // {
+    //   id: 2,
+    //   title: "Task 2",
+    //   description: "Description for task",
+    //   status: "TODO",
+    //   dueDate: new Date(),
+    //   tomatoes: 1,
+    //   createdAt: new Date(),
+    // },
+    // {
+    //   id: 3,
+    //   title: "Task 3",
+    //   description: "Description for task",
+    //   status: "DONE",
+    //   dueDate: new Date(),
+    //   tomatoes: 1,
+    //   createdAt: new Date(),
+    // },
+    // {
+    //   id: 4,
+    //   title: "Task 4",
+    //   description: "Description for task",
+    //   status: "TODO",
+    //   dueDate: new Date(),
+    //   tomatoes: 1,
+    //   createdAt: new Date(),
+    // },
+    // {
+    //   id: 5,
+    //   title: "Task 5",
+    //   description: "Description for task",
+    //   status: "TODO",
+    //   dueDate: new Date(),
+    //   tomatoes: 1,
+    //   createdAt: new Date(),
+    // },
   ]);
+
+  const deleteTask = (id) => {
+    setTasks([...tasks.filter((task) => task.id !== id)]);
+  };
 
   const toggleTaskStatusToActive = (id) => {
     let curr = tasks.find((task) => task.id === id);
@@ -218,42 +253,47 @@ export default function Home() {
 
   return (
     <>
-      <div className="min-h-screen  bg-gray-800 font-inter">
-        <div className="max-w-2xl mx-auto min-h-screen flex flex-col">
-          <Navigation setOpenSetting={setOpenSetting} />
-          <div className="mt-10">
-            <Timer
-              switchStage={switchStage}
+      {isLoading && <div className="h-screen w-screen "></div>}
+      {!isLoading && user && (
+        <div className="min-h-screen  bg-gray-800 font-inter">
+          <div className="max-w-2xl mx-auto min-h-screen flex flex-col">
+            <Navigation setOpenSetting={setOpenSetting} />
+            <div className="mt-10 ">
+              <Timer
+                switchStage={switchStage}
+                getTickingTime={getTickingTime}
+                stage={stage}
+                ticking={ticking}
+                startTimer={startTimer}
+                seconds={seconds}
+                muteAlarm={muteAlarm}
+                isTimeUp={isTimeUp}
+                reset={reset}
+              />
+            </div>
+
+            <TaskList
+              tasks={tasks}
+              setTasks={setTasks}
+              toggleTaskStatusToActive={toggleTaskStatusToActive}
+              toggleTaskStatusToDone={toggleTaskStatusToDone}
+              deleteTask={deleteTask}
               getTickingTime={getTickingTime}
-              stage={stage}
-              ticking={ticking}
-              startTimer={startTimer}
               seconds={seconds}
-              muteAlarm={muteAlarm}
-              isTimeUp={isTimeUp}
-              reset={reset}
+              user={user}
             />
           </div>
-
-          <TaskList
-            tasks={tasks}
-            toggleTaskStatusToActive={toggleTaskStatusToActive}
-            toggleTaskStatusToDone={toggleTaskStatusToDone}
-            getTickingTime={getTickingTime}
-            seconds={seconds}
+          <ModalSetting
+            openSetting={openSetting}
+            setOpenSetting={setOpenSetting}
+            pomodoroRef={pomodoroRef}
+            shortBreakRef={shortBreakRef}
+            longBreakRef={longBreakRef}
+            updateTimeDefaultValue={updateTimeDefaultValue}
           />
-          {/* <About /> */}
+          <Alarm ref={alarmRef} />
         </div>
-        <ModalSetting
-          openSetting={openSetting}
-          setOpenSetting={setOpenSetting}
-          pomodoroRef={pomodoroRef}
-          shortBreakRef={shortBreakRef}
-          longBreakRef={longBreakRef}
-          updateTimeDefaultValue={updateTimeDefaultValue}
-        />
-        <Alarm ref={alarmRef} />
-      </div>
+      )}
     </>
   );
 }

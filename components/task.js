@@ -1,6 +1,11 @@
 import DropdownMenu from "./dropDownMenu";
 
-const Task = ({ task, toggleTaskStatusToActive, toggleTaskStatusToDone }) => {
+const Task = ({
+  task,
+  toggleTaskStatusToActive,
+  toggleTaskStatusToDone,
+  deleteTask
+}) => {
   const styles = {
     DONE: "lime",
     ACTIVE: "rose",
@@ -19,7 +24,11 @@ const Task = ({ task, toggleTaskStatusToActive, toggleTaskStatusToDone }) => {
           </p>
           <p className="text-lg">{task.tomatoes}</p>
         </div>
-        <DropdownMenu task={task} toggleTaskStatus={toggleTaskStatusToDone} />
+        <DropdownMenu
+          task={task}
+          toggleTaskStatusToDone={toggleTaskStatusToDone}
+          deleteTask={deleteTask}
+        />
       </div>
     </div>
   );
