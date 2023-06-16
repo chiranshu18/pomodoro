@@ -48,7 +48,7 @@ const TaskList = ({
     console.log("tomatoes:", newTask.tomatoes);
 
     axios
-      .post("process.env.NEXT_PUBLIC_API_DOMAIN/api/task", {
+      .post(process.env.NEXT_PUBLIC_API_DOMAIN + "/api/task", {
         title: newTask.title,
         description: newTask.description,
         status: "TODO",
