@@ -1,11 +1,11 @@
 import DropdownMenu from "./dropDownMenu";
-// import {GiTomato} from "react-icons/gi";
+import { GiTomato } from "react-icons/gi";
 
 const Task = ({
   task,
   toggleTaskStatusToActive,
   toggleTaskStatusToDone,
-  deleteTask
+  deleteTask,
 }) => {
   const styles = {
     DONE: "lime",
@@ -23,7 +23,10 @@ const Task = ({
           <p className="text-sm block text-slate truncate">
             {task.description}
           </p>
-          <p className="text-lg">{task.tomatoes } </p>
+          <div className="flex justify-between items-center w-[30px]">
+            <p className="text-lg">{task.tomatoes}</p>
+            <GiTomato color="red"/>
+          </div>
         </div>
         <DropdownMenu
           task={task}
