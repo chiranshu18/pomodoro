@@ -61,9 +61,6 @@ const TaskList = ({
         setTasks([...tasks, response.data]);
       });
 
-    // Add the new task to the tasks array
-
-    // Clear input fields
     setNewTask({
       title: "",
       description: "",
