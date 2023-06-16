@@ -131,9 +131,7 @@ const TaskList = ({
       )}
 
       <div className="bg-white bg-opacity-25 p-2 rounded-b-lg border-t border-slate-100 text-center">
-        <span className="text-white mr-2">
-          Pomos: <span className="text-xl">1/2</span>
-        </span>
+        
         <span className="text-white">
           Finish At: <span className="text-xl">{finishAt()}</span>
         </span>

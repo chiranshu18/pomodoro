@@ -52,59 +52,11 @@ export default function Home() {
           }
         });
     }
-    // make an axios call to get user data
   }, [user]);
 
-  const [tasks, setTasks] = useState([
-    // {
-    //   id: 1,
-    //   title: "Task 1",
-    //   description: "Description for task",
-    //   status: "ACTIVE",
-    //   dueDate: new Date(),
-    //   tomatoes: 1,
-    //   createdAt: new Date(),
-    // },
-    // {
-    //   id: 2,
-    //   title: "Task 2",
-    //   description: "Description for task",
-    //   status: "TODO",
-    //   dueDate: new Date(),
-    //   tomatoes: 1,
-    //   createdAt: new Date(),
-    // },
-    // {
-    //   id: 3,
-    //   title: "Task 3",
-    //   description: "Description for task",
-    //   status: "DONE",
-    //   dueDate: new Date(),
-    //   tomatoes: 1,
-    //   createdAt: new Date(),
-    // },
-    // {
-    //   id: 4,
-    //   title: "Task 4",
-    //   description: "Description for task",
-    //   status: "TODO",
-    //   dueDate: new Date(),
-    //   tomatoes: 1,
-    //   createdAt: new Date(),
-    // },
-    // {
-    //   id: 5,
-    //   title: "Task 5",
-    //   description: "Description for task",
-    //   status: "TODO",
-    //   dueDate: new Date(),
-    //   tomatoes: 1,
-    //   createdAt: new Date(),
-    // },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
   const deleteTask = (id) => {
-    // setTasks([...tasks.filter((task) => task.id !== id)]);
     axios
       .delete(process.env.NEXT_PUBLIC_API_DOMAIN + "/api/task", {
         params: {
