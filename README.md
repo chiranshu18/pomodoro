@@ -1,34 +1,34 @@
-# Next.js + Tailwind CSS Example
+# POMODORO TODO APP
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v2.2)](https://blog.tailwindcss.com/tailwindcss-2-2) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+- A web-based to-do list app that implements the Pomodoro Technique, along with an analytics dashboard to track task completion and productivity.
+- The Pomodoro Technique is a time management method that uses a timer to break work into intervals, typically 25 minutes of focused work called a "tomato", followed by a 5-minute break.
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+## Installation Guide
 
-## Preview
+- Clone the repository and open in an editor of choice.
+- run the following comand
+  - npm install
+  - npm run build
+  - npm run start
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+## FOLDER STRUCTURE
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+- Components - contains all the components
 
-## Deploy your own
+  - Alarm - To play the alarm when timer is up
+  - DashboardModal - To show the analytics Modal
+  - dropDownMenu - dropdown to delete/mark_as_done a task
+  - ModalSetting - settings(in navbar) modal
+  - Task - components which contains all the task cards
+  - Tasklist - each task components
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-
-
-
-## Hello123#
+- Pages
+  - API - all the backend services
+    - Auth - for Auth0
+    - Task - CRUD operations for task data
+    - Tasks - GET Route to get all the tasks
+    - User - Routes to manipulate data in user table
+  - Index - Home Page (which contains all the components)
+  - Prisma - contains the db schema
+  - Public - contains the assets
+  - Styles - contains all global styles
