@@ -21,13 +21,10 @@ const DropdownMenuDemo = ({ task, toggleTaskStatusToDone, deleteTask }) => {
           >
             Mark as complete
           </DropdownMenu.Item>
-          <DropdownMenu.Item className="DropdownMenuItem">
-            Edit
-          </DropdownMenu.Item>
           <DropdownMenu.Item
             className="DropdownMenuItem hover:bg-red-600"
             onClick={() => {
-              console.log("delete task: ", task.id)
+              console.log("delete task: ", task.id);
               deleteTask(task.id);
             }}
           >
