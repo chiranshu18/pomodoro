@@ -4,6 +4,7 @@ import Alarm from "../components/Alarm";
 import Navigation from "../components/Navigation";
 import Timer from "../components/Timer";
 import TaskList from "../components/tasklist";
+import DashboardModal from "../components/DashboardModal";
 import axios from "axios";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -219,13 +220,19 @@ export default function Home() {
     };
   }, [poromodo, shortBreak, longBreak, ticking, seconds]);
 
+  const [showDashboard, setShowDashboard] = useState(false);
+
   return (
     <>
       {isLoading && <div className="h-screen w-screen "></div>}
       {!isLoading && user && (
         <div className="min-h-screen  bg-gray-800 font-inter">
           <div className="max-w-2xl mx-auto min-h-screen flex flex-col">
-            <Navigation setOpenSetting={setOpenSetting} />
+            <Navigation
+              setOpenSetting={setOpenSetting}
+              showDashboard={showDashboard}
+              setShowDashboard={setShowDashboard}
+            />
             <div className="mt-10 ">
               <Timer
                 switchStage={switchStage}
@@ -239,17 +246,23 @@ export default function Home() {
                 reset={reset}
               />
             </div>
-
-            <TaskList
-              tasks={tasks}
-              setTasks={setTasks}
-              toggleTaskStatusToActive={toggleTaskStatusToActive}
-              toggleTaskStatusToDone={toggleTaskStatusToDone}
-              deleteTask={deleteTask}
-              getTickingTime={getTickingTime}
-              seconds={seconds}
-              user={user}
-            />
+            {showDashboard ? (
+              <DashboardModal
+                showDashboard={showDashboard}
+                setShowDashboard={setShowDashboard}
+              />
+            ) : (
+              <TaskList
+                tasks={tasks}
+                setTasks={setTasks}
+                toggleTaskStatusToActive={toggleTaskStatusToActive}
+                toggleTaskStatusToDone={toggleTaskStatusToDone}
+                deleteTask={deleteTask}
+                getTickingTime={getTickingTime}
+                seconds={seconds}
+                user={user}
+              />
+            )}
           </div>
           <ModalSetting
             openSetting={openSetting}
