@@ -1,4 +1,5 @@
 import DropdownMenu from "./dropDownMenu";
+// import {GiTomato} from "react-icons/gi";
 
 const Task = ({
   task,
@@ -22,7 +23,7 @@ const Task = ({
           <p className="text-sm block text-slate truncate">
             {task.description}
           </p>
-          <p className="text-lg">{task.tomatoes}</p>
+          <p className="text-lg">{task.tomatoes } </p>
         </div>
         <DropdownMenu
           task={task}

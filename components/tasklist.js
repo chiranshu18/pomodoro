@@ -24,7 +24,7 @@ const TaskList = ({
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
-    tomatoes: "",
+    tomatoes: 0,
   });
   const [startDate, setStartDate] = useState(new Date());
 
@@ -56,7 +56,7 @@ const TaskList = ({
         dueDate: startDate,
         tomatoes: newTask.tomatoes,
         createdAt: new Date(),
-        userid: user.sid,
+        userId: user.sid,
       })
       .then((response) => {
         setTasks([...tasks, response.data]);
@@ -68,7 +68,7 @@ const TaskList = ({
     setNewTask({
       title: "",
       description: "",
-      tomatoes: "",
+      tomatoes: 0,
     });
 
     setShowForm(false);

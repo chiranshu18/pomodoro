@@ -11,7 +11,8 @@ export default async function handler(req, res) {
     return res.status(200).json(data);
   } else if (req.method === "POST") {
     const body = req.body;
-    const data =  await prisma.task.create({ data: body });
+    console.log(req.body);
+    const data = await prisma.task.create({ data: body });
     return res.status(200).json(data);
   } else if (req.method === "PATCH") {
     const body = req.body;
