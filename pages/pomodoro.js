@@ -9,7 +9,6 @@ import axios from "axios";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import { FiMail } from "react-icons/fi";
 
 export const getServerSideProps = withPageAuthRequired();
 
