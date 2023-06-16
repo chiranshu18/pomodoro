@@ -105,7 +105,24 @@ export default function Home() {
   ]);
 
   const deleteTask = (id) => {
-    setTasks([...tasks.filter((task) => task.id !== id)]);
+    // setTasks([...tasks.filter((task) => task.id !== id)]);
+    axios
+      .delete("http://localhost:3000/api/task", {
+        params: {
+          id: id,
+        },
+      })
+      .then(() => {
+        axios
+          .get("http://localhost:3000/api/user", {
+            params: {
+              id: user.sid,
+            },
+          })
+          .then((response) => {
+            setTasks(response.data.tasks || []);
+          });
+      });
   };
 
   const toggleTaskStatusToActive = (id) => {

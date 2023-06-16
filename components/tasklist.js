@@ -49,7 +49,6 @@ const TaskList = ({
 
     axios
       .post("http://localhost:3000/api/task", {
-        id: tasks.length + 1,
         title: newTask.title,
         description: newTask.description,
         status: "TODO",

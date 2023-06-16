@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     return res.status(200).json(data);
   } else if (req.method === "POST") {
     const body = req.body;
-    console.log(req.body);
     const data = await prisma.task.create({ data: body });
     return res.status(200).json(data);
   } else if (req.method === "PATCH") {
@@ -22,7 +21,9 @@ export default async function handler(req, res) {
     });
     return res.status(200).json(data);
   } else if (req.method === "DELETE") {
-    const data = await prisma.task.delete({ where: { id: req.query.id } });
+    const data = await prisma.task.delete({
+      where: { id: Number(req.query.id) },
+    });
     return res.status(200).json(data);
   }
 }
